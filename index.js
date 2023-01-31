@@ -1,5 +1,12 @@
-import functions from '@google-cloud/functions-framework'
-
-functions.http('helloHttp', (req, res) => {
-  res.send('Hello World!');
-})
+export const validateTemperature = async (req, res) => {
+  try {
+    if (req.body.temp < 100) {
+      res.status(200).send("Temperature OK");
+    } else {
+      res.status(200).send("Too hot");
+    }
+  } catch (error) {
+    console.log("got error: ", error);
+    res.status(500).send(error);
+  }
+};
