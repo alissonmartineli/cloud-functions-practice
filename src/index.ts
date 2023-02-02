@@ -9,11 +9,17 @@ export const validateTemperature: HttpFunction = async (
   res: Response
 ) => {
   try {
+    if (req.body.temp === undefined) {
+      res.status(400).send('Temp is required')
+      return
+    }
+
     if (req.body.temp < 100) {
       res.status(200).send('Temperature OK')
-    } else {
-      res.status(200).send('Too hot')
+      return
     }
+
+    res.status(200).send('Too hot')
   } catch (error) {
     console.log('got error: ', error)
     res.status(500).send(error)
